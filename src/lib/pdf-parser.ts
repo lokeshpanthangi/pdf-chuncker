@@ -1,9 +1,10 @@
 
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Configure PDF.js to use the worker from node_modules
-// In Vite, we need to use the correct path to the worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/5.3.31/pdf.worker.min.js`;
+// Configure PDF.js worker using local file in public directory
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+}
 
 export interface PDFParseResult {
   text: string;
