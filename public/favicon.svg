@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#3B82F6" stroke="#1E40AF" stroke-width="2"/>
+  
+  <!-- PDF document icon -->
+  <rect x="18" y="12" width="20" height="26" rx="2" fill="white" stroke="#1E40AF" stroke-width="1.5"/>
+  
+  <!-- PDF text -->
+  <text x="28" y="20" font-family="Arial, sans-serif" font-size="6" font-weight="bold" fill="#1E40AF" text-anchor="middle">PDF</text>
+  
+  <!-- Chunking lines -->
+  <line x1="20" y1="24" x2="36" y2="24" stroke="#3B82F6" stroke-width="1"/>
+  <line x1="20" y1="27" x2="34" y2="27" stroke="#3B82F6" stroke-width="1"/>
+  <line x1="20" y1="30" x2="36" y2="30" stroke="#3B82F6" stroke-width="1"/>
+  <line x1="20" y1="33" x2="32" y2="33" stroke="#3B82F6" stroke-width="1"/>
+  
+  <!-- Chunking separator -->
+  <line x1="16" y1="35" x2="40" y2="35" stroke="#EF4444" stroke-width="2" stroke-dasharray="2,2"/>
+  
+  <!-- Bottom chunk -->
+  <rect x="18" y="38" width="20" height="12" rx="1" fill="#F3F4F6" stroke="#6B7280" stroke-width="1"/>
+  <line x1="20" y1="42" x2="36" y2="42" stroke="#6B7280" stroke-width="1"/>
+  <line x1="20" y1="45" x2="34" y2="45" stroke="#6B7280" stroke-width="1"/>
+  <line x1="20" y1="48" x2="30" y2="48" stroke="#6B7280" stroke-width="1"/>
+</svg>

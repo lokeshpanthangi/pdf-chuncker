@@ -1,73 +1,265 @@
-# Welcome to your Lovable project
+# 📄 PDF Chuncker - RAG Text Chunking Visualizer
 
-## Project info
+🚀 **Interactive PDF chunking tool for RAG (Retrieval-Augmented Generation) systems**
 
-**URL**: https://lovable.dev/projects/be4f2bd9-4db9-4c0d-8293-562d3e02ca89
+Experiment with different text chunking strategies, upload PDFs, and visualize how your documents are split for optimal RAG performance!
 
-## How can I edit this code?
+## 🌟 Live Demo
 
-There are several ways of editing your application.
+**Try it now:** [https://pdf-chuncker.vercel.app/](https://pdf-chuncker.vercel.app/)
 
-**Use Lovable**
+## 📚 Repository
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/be4f2bd9-4db9-4c0d-8293-562d3e02ca89) and start prompting.
+**GitHub:** [https://github.com/lokeshpanthangi/pdf-chuncker.git](https://github.com/lokeshpanthangi/pdf-chuncker.git)
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Features
 
-**Use your preferred IDE**
+- 📤 **PDF Upload**: Drag & drop or click to upload PDF documents (up to 50MB)
+- 🔧 **Multiple Chunking Strategies**: Choose from 4 different chunking methods
+- 📊 **Real-time Visualization**: See your chunks as you configure them
+- 📈 **Statistics Dashboard**: Analyze chunk distribution and characteristics
+- 🎯 **Interactive Configuration**: Adjust parameters and see immediate results
+- 💾 **Export Functionality**: Download your chunked results
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🧩 What is Text Chunking?
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Text chunking is the process of breaking down large documents into smaller, manageable pieces (chunks) for use in RAG systems. Proper chunking is crucial for:
 
-Follow these steps:
+- 🎯 **Better Retrieval**: Smaller chunks improve semantic search accuracy
+- 💡 **Context Preservation**: Maintaining meaningful information boundaries
+- ⚡ **Performance**: Optimizing embedding generation and storage
+- 🧠 **LLM Compatibility**: Fitting within token limits of language models
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🔄 Chunking Strategies
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 1. 📏 Fixed Size Chunking
 
-# Step 3: Install the necessary dependencies.
-npm i
+**How it works:** Splits text into equal-sized chunks with optional overlap.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+Text: "The quick brown fox jumps over the lazy dog. The dog was sleeping."
+Chunk Size: 20 characters
+Overlap: 5 characters
+
+Chunk 1: "The quick brown fox "
+Chunk 2: "fox jumps over the l"
+Chunk 3: "the lazy dog. The do"
+Chunk 4: "The dog was sleeping."
 ```
 
-**Edit a file directly in GitHub**
+**✅ Advantages:**
+- Predictable chunk sizes
+- Simple implementation
+- Memory efficient
+- Consistent processing time
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**⚠️ Considerations:**
+- May break sentences/paragraphs
+- Context boundaries ignored
+- Potential loss of semantic meaning
 
-**Use GitHub Codespaces**
+**🎯 Best for:**
+- Large documents with uniform structure
+- When consistent chunk sizes are required
+- Simple RAG implementations
+- Memory-constrained environments
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 2. 📝 Sentence-Based Chunking
 
-## What technologies are used for this project?
+**How it works:** Preserves sentence boundaries while grouping sentences into chunks.
 
-This project is built with:
+```
+Text: "AI is transforming industries. Machine learning enables automation. Deep learning powers modern AI."
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Chunk 1: "AI is transforming industries. Machine learning enables automation."
+Chunk 2: "Deep learning powers modern AI."
+```
 
-## How can I deploy this project?
+**✅ Advantages:**
+- Preserves sentence integrity
+- Better readability
+- Maintains grammatical structure
+- Natural language flow
 
-Simply open [Lovable](https://lovable.dev/projects/be4f2bd9-4db9-4c0d-8293-562d3e02ca89) and click on Share -> Publish.
+**⚠️ Considerations:**
+- Variable chunk sizes
+- May create very small or large chunks
+- Depends on sentence length distribution
 
-## Can I connect a custom domain to my Lovable project?
+**🎯 Best for:**
+- Question-answering systems
+- Content that relies on complete thoughts
+- Educational materials
+- Legal documents
 
-Yes, you can!
+### 3. 📄 Paragraph-Based Chunking
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+**How it works:** Maintains topic coherence by keeping paragraphs intact.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```
+Document with multiple paragraphs:
+
+Chunk 1: [Complete Paragraph 1]
+"Introduction to machine learning and its applications in modern technology..."
+
+Chunk 2: [Complete Paragraph 2] 
+"Deep learning architectures have revolutionized computer vision..."
+
+Chunk 3: [Complete Paragraph 3]
+"Natural language processing has seen significant advances..."
+```
+
+**✅ Advantages:**
+- Preserves topic coherence
+- Maintains logical structure
+- Better context preservation
+- Natural content boundaries
+
+**⚠️ Considerations:**
+- Highly variable chunk sizes
+- Some paragraphs may be too long
+- Depends on document structure
+
+**🎯 Best for:**
+- Research papers and articles
+- Blog posts and news articles
+- Technical documentation
+- Content with clear topic separation
+
+### 4. 🌳 Recursive Chunking
+
+**How it works:** Intelligent hierarchical text splitting that tries multiple separators.
+
+```
+Process:
+1. Try to split by paragraphs (\n\n)
+2. If chunks too large, split by sentences (.!?)
+3. If still too large, split by phrases (,;:)
+4. Finally, split by words or characters
+
+Example:
+Large Paragraph → Sentences → Phrases → Words → Characters
+```
+
+**✅ Advantages:**
+- Intelligent boundary detection
+- Preserves context hierarchy
+- Adapts to content structure
+- Balances size and meaning
+
+**⚠️ Considerations:**
+- More complex implementation
+- Longer processing time
+- May still break semantic units
+
+**🎯 Best for:**
+- Mixed content types
+- Complex document structures
+- When you need balance between size and context
+- Production RAG systems
+
+## 🛠️ Technology Stack
+
+- ⚛️ **React 18** - Modern UI framework
+- 🔷 **TypeScript** - Type-safe development
+- ⚡ **Vite** - Fast build tool and dev server
+- 🎨 **Tailwind CSS** - Utility-first styling
+- 🧩 **shadcn/ui** - Beautiful UI components
+- 📄 **PDF.js** - PDF parsing and text extraction
+- 🎯 **React Dropzone** - File upload handling
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/lokeshpanthangi/pdf-chuncker.git
+   cd pdf-chuncker
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   ```
+   http://localhost:8080
+   ```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+## 📖 How to Use
+
+1. **📤 Upload PDF**: Drag and drop your PDF file or click to browse
+2. **⚙️ Choose Strategy**: Select from Fixed Size, Sentence-Based, Paragraph-Based, or Recursive
+3. **🔧 Configure Parameters**: Adjust chunk size, overlap, and other settings
+4. **👀 Visualize**: See your chunks in real-time
+5. **📊 Analyze**: Check statistics and chunk distribution
+6. **💾 Export**: Download your chunked results
+
+## 🎯 Use Cases
+
+### 🤖 RAG Systems
+- **Document Q&A**: Chunk knowledge bases for accurate retrieval
+- **Chatbots**: Prepare training data with optimal chunk sizes
+- **Search Systems**: Improve semantic search with proper chunking
+
+### 📚 Content Processing
+- **Research**: Analyze document structure and content distribution
+- **Data Preparation**: Prepare text data for machine learning models
+- **Content Analysis**: Understand document characteristics
+
+### 🔬 Experimentation
+- **Strategy Comparison**: Test different chunking approaches
+- **Parameter Tuning**: Find optimal settings for your use case
+- **Performance Testing**: Measure impact on retrieval quality
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Lokesh Panthangi**
+- GitHub: [@lokeshpanthangi](https://github.com/lokeshpanthangi)
+
+## 🙏 Acknowledgments
+
+- PDF.js team for excellent PDF parsing capabilities
+- shadcn/ui for beautiful UI components
+- Vercel for seamless deployment
+- The RAG and LLM community for inspiration
+
+---
+
+⭐ **Star this repository if you find it helpful!**
+
+🔗 **Live Demo:** [https://pdf-chuncker.vercel.app/](https://pdf-chuncker.vercel.app/)
+
+📧 **Questions?** Open an issue or reach out!
