@@ -1,4 +1,3 @@
-
 export interface ChunkingConfig {
   chunkSize: number;
   overlap: number;
@@ -421,7 +420,7 @@ export class ChunkingStrategies {
     // Enhanced semantic analysis
     const currentWords = this.extractKeywords(currentChunk);
     const nextWords = this.extractKeywords(nextSentence);
-    const followingWords = followingSentence ? this.extractKeywords(followingSentence) : new Set();
+    const followingWords = followingSentence ? this.extractKeywords(followingSentence) : new Set<string>();
 
     // Calculate semantic similarity
     const similarity = this.calculateSimilarity(currentWords, nextWords);
@@ -442,13 +441,13 @@ export class ChunkingStrategies {
     // Extract meaningful words (excluding common stop words)
     const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they']);
     
-    return new Set(
-      text.toLowerCase()
-        .replace(/[^\w\s]/g, ' ')
-        .split(/\s+/)
-        .filter(word => word.length > 2 && !stopWords.has(word))
-        .slice(0, 20) // Limit to top 20 keywords for performance
-    );
+    const keywords = text.toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .split(/\s+/)
+      .filter((word: string) => word.length > 2 && !stopWords.has(word))
+      .slice(0, 20); // Limit to top 20 keywords for performance
+    
+    return new Set<string>(keywords);
   }
 
   private static calculateSimilarity(set1: Set<string>, set2: Set<string>): number {
